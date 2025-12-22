@@ -201,6 +201,15 @@ This functionality was not implemented in the current prototype
 in order to focus on core networking concepts, MQTT messaging,
 and local processing.
 
+## Live Deployment
+
+Backend deployed on Render:
+
+https://weathertop-iot.onrender.com
+
+Note: IoT edge node runs locally and publishes telemetry via MQTT.
+
+---
 ## Notes
 
 The edge node simulates a Raspberry Pi in order to focus on networking concepts and system architecture rather than physical hardware constraints.
