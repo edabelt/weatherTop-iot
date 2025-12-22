@@ -1,0 +1,79 @@
+<div class="tile is-ancestor">
+  <div class="tile is-parent">
+    <article class="tile is-child notification is-dark">
+      <p class="title is-6 has-text-white">{{station.name}}</p>
+      <p class="has-text-white is-size-7">Lat {{station.lat}}, Lng {{station.lng}}</p>
+    </article>
+  </div>
+
+  <div class="tile is-parent">
+    <article class="tile is-child notification is-dark">
+      <p class="title is-6 has-text-white">Weather</p>
+      {{#if station.live}}
+        {{#if station.live.iconId}}
+          <figure class="image is-48x48 mb-1" style="margin:0;">
+            <img alt="icon" src="https://openweathermap.org/img/wn/{{station.live.iconId}}@2x.png">
+          </figure>
+        {{/if}}
+        <p class="has-text-white is-size-7">{{station.live.description}}</p>
+        <p class="has-text-white is-size-7">code {{station.live.code}}</p>
+      {{else if station.latest}}
+        <p class="has-text-white is-size-7">code {{station.latest.code}}</p>
+      {{else}}
+        <p class="has-text-white is-size-7">No reports</p>
+      {{/if}}
+    </article>
+  </div>
+
+  <!-- Temp -->
+  <div class="tile is-parent">
+    <article class="tile is-child notification is-dark">
+      <p class="title is-6 has-text-white">Temp</p>
+      {{#if station.latest}}
+        <p class="has-text-white">{{station.latest.temp}} °C</p>
+      {{else if station.live}}
+        <p class="has-text-white">{{station.live.temp}} °C</p>
+      {{else}}
+        <p class="has-text-white">—</p>
+      {{/if}}
+      <p class="has-text-white is-size-7">Max: {{station.stats.maxTemp}} °C</p>
+      <p class="has-text-white is-size-7">Min: {{station.stats.minTemp}} °C</p>
+    </article>
+  </div>
+
+  <!-- Wind -->
+  <div class="tile is-parent">
+    <article class="tile is-child notification is-dark">
+      <p class="title is-6 has-text-white">Wind</p>
+      {{#if station.latest}}
+        <p class="has-text-white">{{bft station.latest.windSpeed}} bft</p>
+        <p class="has-text-white">Speed: {{fmtWind station.latest.windSpeed}} m/s</p>
+        <p class="has-text-white">Dir: {{station.latest.windDirection}}</p>
+      {{else if station.live}}
+        <p class="has-text-white">{{bft station.live.windSpeed}} bft</p>
+        <p class="has-text-white">Speed: {{fmtWind station.live.windSpeed}} m/s</p>
+        <p class="has-text-white">Dir: {{station.live.windDirection}}</p>
+      {{else}}
+        <p class="has-text-white">—</p>
+      {{/if}}
+      <p class="has-text-white is-size-7">Max: {{station.stats.maxWind}} m/s</p>
+      <p class="has-text-white is-size-7">Min: {{station.stats.minWind}} m/s</p>
+    </article>
+  </div>
+
+  <!-- Pressure -->
+  <div class="tile is-parent">
+    <article class="tile is-child notification is-dark">
+      <p class="title is-6 has-text-white">Pressure</p>
+      {{#if station.latest}}
+        <p class="has-text-white">{{fmtPressure station.latest.pressure}} hPa</p>
+      {{else if station.live}}
+        <p class="has-text-white">{{fmtPressure station.live.pressure}} hPa</p>
+      {{else}}
+        <p class="has-text-white">—</p>
+      {{/if}}
+      <p class="has-text-white is-size-7">Max: {{fmtPressure station.stats.maxPressure}} hPa</p>
+      <p class="has-text-white is-size-7">Min: {{fmtPressure station.stats.minPressure}} hPa</p>
+    </article>
+  </div>
+</div>

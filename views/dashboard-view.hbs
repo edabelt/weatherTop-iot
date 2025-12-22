@@ -1,0 +1,173 @@
+{{> menu user=user}}
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">Your Stations</h1>
+
+    {{#if error}}
+      <div class="notification is-danger">{{error}}</div>
+    {{/if}}
+
+    <div class="box">
+      <form action="/dashboard/addstation" method="POST">
+        <div class="columns is-variable is-3 is-multiline">
+          <div class="column is-12-mobile is-6-tablet is-6-desktop">
+            <label class="label">Station Name</label>
+            <input class="input" type="text" name="name" placeholder="City name" required>
+          </div>
+          <div class="column is-6-mobile is-3-tablet is-3-desktop">
+            <label class="label">Latitude</label>
+            <input class="input" type="number" step="0.000001" name="lat" placeholder="Optional">
+          </div>
+          <div class="column is-6-mobile is-3-tablet is-3-desktop">
+            <label class="label">Longitude</label>
+            <input class="input" type="number" step="0.000001" name="lng" placeholder="Optional">
+          </div>
+        </div>
+        <button class="button is-primary">Add Station</button>
+      </form>
+    </div>
+
+    <div class="box">
+      <h2 class="title is-5">Map</h2>
+      <div id="map" style="height: 360px" data-stations='{{{stationsJson}}}'></div>
+    </div>
+
+    <div class="columns is-multiline">
+      {{#each stations}}
+        <div class="column is-12-mobile is-6-tablet is-4-desktop">
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">
+                <a href="/stations/{{_id}}">{{name}}</a>
+              </p>
+
+              {{!-- IoT status badge (top right) --}}
+              {{#if iot.telemetry}}
+                <div class="card-header-icon" title="IoT telemetry received">
+                  <span class="tag is-info is-light">IoT LIVE</span>
+                </div>
+              {{/if}}
+
+              {{#if iot.isHot}}
+                <div class="card-header-icon" title="TEMP_HIGH event detected">
+                  <span class="tag is-danger">ALERT</span>
+                </div>
+              {{/if}}
+            </header>
+
+            <div class="card-content">
+              {{!-- OpenWeather live --}}
+              {{#if live}}
+                <div class="level">
+                  <div class="level-left">
+                    <div>
+                      <p class="title is-4">{{live.temp}} °C</p>
+                      <p class="subtitle is-6">{{live.description}}</p>
+                      <p class="is-size-7">Wind {{live.windSpeed}} m/s • {{live.windDirection}}</p>
+                      <p class="is-size-7">Pressure {{live.pressure}} hPa</p>
+                    </div>
+                  </div>
+                  <div class="level-right">
+                    {{#if live.iconId}}
+                      <figure class="image is-64x64">
+                        <img alt="icon" src="https://openweathermap.org/img/wn/{{live.iconId}}@2x.png">
+                      </figure>
+                    {{/if}}
+                  </div>
+                </div>
+              {{else}}
+                <p class="has-text-grey">No live data</p>
+              {{/if}}
+
+              {{!-- IoT block --}}
+              <hr class="my-3">
+
+              {{#if iot.telemetry}}
+                <div class="mb-2">
+                  <p class="has-text-weight-semibold is-size-7">
+                    Internet of Things (MQTT)
+                    {{#if iot.isHot}}
+                      <span class="tag is-danger is-light ml-2">TEMP_HIGH</span>
+                    {{/if}}
+                  </p>
+
+                  <p class="is-size-7">
+                    <strong>Temp:</strong> {{iot.telemetry.temperature}} °C
+                    • <strong>Humidity:</strong> {{iot.telemetry.humidity}} %
+                  </p>
+                  <p class="is-size-7">
+                    <strong>Wind:</strong> {{iot.telemetry.windSpeed}} m/s
+                    • <strong>Pressure:</strong> {{iot.telemetry.pressure}} hPa
+                  </p>
+                  <p class="is-size-7 has-text-grey">
+                    <strong>Time:</strong> {{iot.telemetry.timestamp}}
+                  </p>
+
+                  {{!-- Simple comparison IoT vs OWM --}}
+                  {{#if live}}
+                    <p class="is-size-7 mt-2">
+                      <span class="tag is-light">
+                        IoT vs OWM Temp:
+                        {{iot.telemetry.temperature}}°C vs {{live.temp}}°C
+                      </span>
+                    </p>
+                  {{/if}}
+
+                  {{#if iot.event}}
+                    <p class="is-size-7 mt-2">
+                      <strong>Last event:</strong> {{iot.event.type}} —
+                      <span class="has-text-grey">{{iot.event.message}}</span>
+                    </p>
+                  {{/if}}
+                </div>
+              {{else}}
+                <p class="has-text-grey is-size-7">
+                  IoT: no telemetry yet (start <code>edge_node.py</code>)
+                </p>
+              {{/if}}
+
+              {{!-- Stats --}}
+              {{#if stats}}
+                <div class="columns is-mobile mt-2">
+                  <div class="column">
+                    <p class="has-text-weight-semibold is-size-7">Temp</p>
+                    <p class="is-size-7">min {{stats.minTemp}}°C</p>
+                    <p class="is-size-7">max {{stats.maxTemp}}°C</p>
+                  </div>
+                  <div class="column">
+                    <p class="has-text-weight-semibold is-size-7">Wind</p>
+                    <p class="is-size-7">min {{stats.minWind}} m/s</p>
+                    <p class="is-size-7">max {{stats.maxWind}} m/s</p>
+                  </div>
+                  <div class="column">
+                    <p class="has-text-weight-semibold is-size-7">Pressure</p>
+                    <p class="is-size-7">min {{stats.minPressure}} hPa</p>
+                    <p class="is-size-7">max {{stats.maxPressure}} hPa</p>
+                  </div>
+                </div>
+              {{/if}}
+            </div>
+
+            <footer class="card-footer">
+              <a href="/stations/{{_id}}" class="card-footer-item">
+                <span class="icon mr-1">📂</span> Open
+              </a>
+              <form action="/dashboard/stations/{{_id}}/delete" method="POST" style="margin:0;width:100%;">
+                <button type="submit" class="card-footer-item button is-white" style="border:none;width:100%;">
+                  <span class="icon mr-1">🗑️</span> Delete
+                </button>
+              </form>
+            </footer>
+
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+<script src="/js/dashboard-map.js" defer></script>
+

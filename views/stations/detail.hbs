@@ -1,0 +1,154 @@
+{{> menu user=user}}
+
+<section class="section">
+  <div class="container">
+
+    <!-- Station header -->
+    <div class="has-text-centered mb-5">
+      <h1 class="title is-3">
+        Station name:
+        <a class="has-text-link has-text-weight-semibold"
+           href="/stations/{{station._id}}/overview"
+           title="Open overview">
+          {{station.name}} ↗
+        </a>
+      </h1>
+    </div>
+
+    <!-- Existing WeatherTop live cards (OpenWeather) -->
+    {{> station-cards station=station live=live iot=iot}}
+     		
+    <!-- ========================= -->
+    <!-- IoT ALERT (TEMP_HIGH)     -->
+    <!-- ========================= -->
+    {{#if isTempHigh}}
+      <div class="notification is-danger">
+        <strong>⚠ IoT ALERT:</strong>
+        Temperature exceeded threshold ({{iotEvent.value}} °C ≥ {{iotEvent.threshold}} °C)
+        <br>
+        <small>{{iotEvent.timestamp}}</small>
+      </div>
+    {{/if}}
+
+    <!-- ========================= -->
+    <!-- OWM vs IoT comparison     -->
+    <!-- ========================= -->
+    {{#if liveIoT}}
+      <div class="box">
+        <h2 class="title is-5">OpenWeather vs IoT (Live Comparison)</h2>
+
+        <table class="table is-fullwidth is-striped">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>OpenWeather</th>
+              <th>IoT Sensor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Temperature</td>
+              <td>{{liveOWM.temp}} °C</td>
+              <td>{{liveIoT.temp}} °C</td>
+            </tr>
+            <tr>
+              <td>Wind Speed</td>
+              <td>{{liveOWM.windSpeed}} m/s</td>
+              <td>{{liveIoT.windSpeed}} m/s</td>
+            </tr>
+            <tr>
+              <td>Pressure</td>
+              <td>{{liveOWM.pressure}} hPa</td>
+              <td>{{liveIoT.pressure}} hPa</td>
+            </tr>
+            <tr>
+              <td>Timestamp</td>
+              <td>{{liveOWM.when}}</td>
+              <td>{{liveIoT.when}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="is-size-7 has-text-grey">
+          OpenWeather provides cloud-based weather data, while IoT values are generated
+          by a simulated edge device and transmitted via MQTT.
+        </p>
+      </div>
+    {{/if}}
+
+    <!-- ========================= -->
+    <!-- IoT recent telemetry      -->
+    <!-- ========================= -->
+    {{#if recentTelemetry.length}}
+      <div class="box">
+        <h2 class="title is-5">Recent IoT Telemetry ({{iotStationId}})</h2>
+
+        <table class="table is-striped is-fullwidth is-hoverable">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Temp (°C)</th>
+              <th>Humidity (%)</th>
+              <th>Pressure (hPa)</th>
+              <th>Wind (m/s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each recentTelemetry}}
+              <tr>
+                <td>{{timestamp}}</td>
+                <td>{{temperature}}</td>
+                <td>{{humidity}}</td>
+                <td>{{pressure}}</td>
+                <td>{{windSpeed}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    {{/if}}
+
+    <!-- ========================= -->
+    <!-- Temperature trend chart   -->
+    <!-- ========================= -->
+    <div class="box">
+      <h2 class="title is-5">Temperature Trend</h2>
+      <p class="is-size-7 has-text-grey">
+        Built from saved WeatherTop reports.
+      </p>
+      {{{tempSvg}}}
+    </div>
+
+    <!-- ========================= -->
+    <!-- Reports table             -->
+    <!-- ========================= -->
+    {{> report-table stationId=station._id reports=reports}}
+
+    <!-- ========================= -->
+    <!-- Manual report form        -->
+    <!-- ========================= -->
+    {{> report-form
+        stationId=station._id
+        weatherCodes=weatherCodes
+        windDirs=windDirs
+        prefill=prefill
+        selectedCode=selectedCode
+        selectedDir=selectedDir
+    }}
+
+    <!-- ========================= -->
+    <!-- OpenWeather auto read     -->
+    <!-- ========================= -->
+    <form action="/stations/{{station._id}}/owm" method="POST" class="mt-5">
+      <div class="field">
+        <div class="control">
+          <button class="button is-primary">
+            Auto Read from OpenWeather
+          </button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</section>
+

@@ -1,0 +1,33 @@
+<div class="box">
+  <h2 class="title is-5">Reports</h2>
+  {{#if reports.length}}
+    <div class="table-container">
+      <table class="table is-fullwidth is-striped is-hoverable">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Temp (°C)</th>
+            <th>Wind (m/s)</th>
+            <th>Wind Dir</th>
+            <th>Pressure (hPa)</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each reports}}
+            <tr>
+              <td>{{code}}</td>
+              <td>{{temp}}</td>
+              <td>{{windSpeed}}</td>
+              <td>{{windDirection}}</td>
+              <td>{{pressure}}</td>
+              <td class="is-size-7">{{createdAt}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  {{else}}
+    <p class="has-text-grey">No reports yet.</p>
+  {{/if}}
+</div>

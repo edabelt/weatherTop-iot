@@ -1,0 +1,230 @@
+{{> menu}}
+
+<section class="section">
+  <div class="container">
+
+    <h1 class="title">Internet of Things</h1>
+    <p class="subtitle">
+      Live telemetry, events, and derived analytics from the WeatherTop IoT edge node
+    </p>
+
+    {{!-- Summary analytics --}}
+    <div class="box">
+      <h2 class="title is-5">Summary (Last 20 Telemetry Samples)</h2>
+
+      {{#if stats.countTelemetry}}
+        <div class="columns is-multiline">
+          <div class="column is-3">
+            <p><strong>Samples:</strong> {{stats.countTelemetry}}</p>
+          </div>
+
+          <div class="column is-3">
+            <p><strong>Temp Min:</strong>
+              {{#if stats.tempMin}}{{stats.tempMin}} °C{{else}}—{{/if}}
+            </p>
+          </div>
+
+          <div class="column is-3">
+            <p><strong>Temp Avg:</strong>
+              {{#if stats.tempAvg}}{{stats.tempAvg}} °C{{else}}—{{/if}}
+            </p>
+          </div>
+
+          <div class="column is-3">
+            <p><strong>Temp Max:</strong>
+              {{#if stats.tempMax}}{{stats.tempMax}} °C{{else}}—{{/if}}
+            </p>
+          </div>
+
+          <div class="column is-4">
+            <p><strong>Avg Humidity:</strong>
+              {{#if stats.humidityAvg}}{{stats.humidityAvg}} %{{else}}—{{/if}}
+            </p>
+          </div>
+
+          <div class="column is-4">
+            <p><strong>Avg Wind:</strong>
+              {{#if stats.windAvg}}{{stats.windAvg}} m/s{{else}}—{{/if}}
+            </p>
+          </div>
+
+          <div class="column is-4">
+            <p><strong>Avg Pressure:</strong>
+              {{#if stats.pressureAvg}}{{stats.pressureAvg}} hPa{{else}}—{{/if}}
+            </p>
+          </div>
+
+          <div class="column is-12">
+            <p class="has-text-danger">
+              <strong>Events (Last 10):</strong> {{stats.eventCount}}
+            </p>
+          </div>
+        </div>
+      {{else}}
+        <div class="notification is-info">
+          No telemetry samples yet. Start the edge node and refresh.
+        </div>
+      {{/if}}
+    </div>
+
+    {{!-- Latest telemetry + last event --}}
+    <div class="columns">
+      <div class="column is-half">
+        <div class="box">
+          <h2 class="title is-5">Latest Telemetry</h2>
+
+          {{#if telemetry}}
+            <table class="table is-fullwidth is-striped">
+              <tbody>
+                <tr>
+                  <th>Station</th>
+                  <td>{{telemetry.stationId}}</td>
+                </tr>
+                <tr>
+                  <th>Timestamp</th>
+                  <td>{{telemetry.timestamp}}</td>
+                </tr>
+                <tr>
+                  <th>Temperature</th>
+                  <td>{{telemetry.temperature}} °C</td>
+                </tr>
+                <tr>
+                  <th>Humidity</th>
+                  <td>{{telemetry.humidity}} %</td>
+                </tr>
+                <tr>
+                  <th>Wind Speed</th>
+                  <td>{{telemetry.windSpeed}} m/s</td>
+                </tr>
+                <tr>
+                  <th>Pressure</th>
+                  <td>{{telemetry.pressure}} hPa</td>
+                </tr>
+              </tbody>
+            </table>
+          {{else}}
+            <div class="notification is-info">
+              Waiting for telemetry…
+            </div>
+          {{/if}}
+        </div>
+      </div>
+
+      <div class="column is-half">
+        <div class="box {{#if event}}has-background-warning-light{{/if}}">
+          <h2 class="title is-5">Last Event</h2>
+
+          {{#if event}}
+            <table class="table is-fullwidth is-striped">
+              <tbody>
+                <tr>
+                  <th>Type</th>
+                  <td>{{event.type}}</td>
+                </tr>
+                <tr>
+                  <th>Message</th>
+                  <td>{{event.message}}</td>
+                </tr>
+                <tr>
+                  <th>Value</th>
+                  <td>{{event.value}} °C</td>
+                </tr>
+                <tr>
+                  <th>Threshold</th>
+                  <td>{{event.threshold}} °C</td>
+                </tr>
+                <tr>
+                  <th>Timestamp</th>
+                  <td>{{event.timestamp}}</td>
+                </tr>
+              </tbody>
+            </table>
+          {{else}}
+            <div class="notification is-light">
+              No events have been triggered yet.
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    {{!-- Telemetry history --}}
+    <div class="columns">
+      <div class="column is-8">
+        <div class="box">
+          <h2 class="title is-5">Recent Telemetry (Last 20)</h2>
+
+          <table class="table is-striped is-fullwidth is-hoverable">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Station</th>
+                <th>Temp (°C)</th>
+                <th>Humidity (%)</th>
+                <th>Pressure (hPa)</th>
+                <th>Wind (m/s)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each telemetryHistory}}
+                <tr>
+                  <td>{{timestamp}}</td>
+                  <td>{{stationId}}</td>
+                  <td>{{temperature}}</td>
+                  <td>{{humidity}}</td>
+                  <td>{{pressure}}</td>
+                  <td>{{windSpeed}}</td>
+                </tr>
+              {{else}}
+                <tr>
+                  <td colspan="6">No telemetry history available.</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {{!-- Event history --}}
+      <div class="column is-4">
+        <div class="box">
+          <h2 class="title is-5">Recent Events (Last 10)</h2>
+
+          <table class="table is-fullwidth">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each eventHistory}}
+                <tr class="has-background-warning-light">
+                  <td>{{timestamp}}</td>
+                  <td>
+                    <strong>{{type}}</strong><br>
+                    <small>{{message}}</small><br>
+                    <small>Value: {{value}} °C / Threshold: {{threshold}} °C</small>
+                  </td>
+                </tr>
+              {{else}}
+                <tr>
+                  <td colspan="2">No events recorded.</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Auto-refresh to keep live feel during demo
+  setTimeout(() => location.reload(), 5000);
+</script>
+

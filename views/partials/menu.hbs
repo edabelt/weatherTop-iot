@@ -1,0 +1,64 @@
+<div class="has-background-primary py-4">
+  <div class="container">
+    <div class="is-flex is-align-items-center is-justify-content-center">
+      <a href="{{#if user}}/dashboard{{else}}/{{/if}}" aria-label="WeatherTop" class="is-inline-flex is-align-items-center">
+        <img src="/images/logo.png" alt="WeatherTop logo" style="height:56px;width:auto;">
+      </a>
+      <a href="{{#if user}}/dashboard{{else}}/{{/if}}"
+         class="title is-4 has-text-white"
+         style="margin-left:0.25rem;">
+        WeatherTop
+      </a>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar is-light has-shadow" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a role="button"
+         class="navbar-burger"
+         aria-label="menu"
+         aria-expanded="false"
+         data-target="mainNavbar">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="mainNavbar" class="navbar-menu">
+      <div class="navbar-start">
+
+        <a class="navbar-item {{#if (eq active 'about')}}is-active{{/if}}" href="/about">
+          About
+        </a>
+
+        {{#if user}}
+          <a class="navbar-item {{#if (eq active 'dashboard')}}is-active{{/if}}" href="/dashboard">
+            Dashboard
+          </a>
+
+          <a class="navbar-item {{#if (eq active 'iot')}}is-active{{/if}}" href="/iot-view">
+            IoT
+          </a>
+        {{/if}}
+
+      </div>
+
+      <div class="navbar-end">
+        {{#if user}}
+          <div class="navbar-item">
+            Hi, {{user.firstName}}
+          </div>
+          <a class="navbar-item" href="/settings">Settings</a>
+          <a class="navbar-item" href="/logout">Logout</a>
+        {{else}}
+          <a class="navbar-item" href="/login">Login</a>
+          <a class="navbar-item" href="/signup">Sign up</a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</nav>
+

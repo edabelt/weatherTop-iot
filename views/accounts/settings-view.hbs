@@ -1,0 +1,38 @@
+{{> menu user=user}}
+
+<section class="section">
+  <div class="container" style="max-width: 640px;">
+    <h1 class="title">Settings</h1>
+    <form action="/settings" method="POST">
+      <div class="columns">
+        <div class="column">
+          <div class="field">
+            <label class="label">First name</label>
+            <div class="control"><input class="input" type="text" name="firstName" value="{{user.firstName}}" required></div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="field">
+            <label class="label">Last name</label>
+            <div class="control"><input class="input" type="text" name="lastName" value="{{user.lastName}}" required></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control"><input class="input" type="email" name="email" value="{{user.email}}" required></div>
+      </div>
+
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control"><input class="input" type="password" name="password" value="{{user.password}}" required></div>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control"><button class="button is-primary" type="submit">Save</button></div>
+        <div class="control"><a class="button" href="/dashboard">Back</a></div>
+      </div>
+    </form>
+  </div>
+</section>

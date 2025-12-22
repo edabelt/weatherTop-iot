@@ -1,0 +1,17 @@
+{
+  "file": "./models/users.json",
+  "users": [
+    {
+      "_id": "2b5e9442-4913-472d-94f4-6b46afe662a9",
+      "firstName": "Ever David",
+      "lastName": "Beltrán Pinto",
+      "email": "edabelt@hotmail.com",
+      "password": "Materde2"
+    },
+    {
+      "_id": "ea91b4d2-8fdc-40e0-8f85-83ba36be3d00",
+      "firstName": "",
+      "lastName": ""
+    }
+  ]
+}

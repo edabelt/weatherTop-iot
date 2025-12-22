@@ -1,0 +1,93 @@
+{{> menu}}
+
+<section class="section">
+  <div class="container">
+    <h1 class="title">Internet of Things – Live Dashboard</h1>
+
+    <!-- Live State -->
+    <div class="box">
+      <h2 class="subtitle">Live State (Latest)</h2>
+
+      {{#each liveState.lastTelemetryByStation}}
+        <p>
+          <strong>Station:</strong> {{stationId}} |
+          <strong>Temp:</strong> {{temperature}} °C |
+          <strong>Humidity:</strong> {{humidity}} % |
+          <strong>Pressure:</strong> {{pressure}} hPa |
+          <strong>Wind:</strong> {{windSpeed}} m/s
+        </p>
+      {{else}}
+        <p>No live telemetry available.</p>
+      {{/each}}
+
+      {{#each liveState.lastEventByStation}}
+        <p class="has-text-danger">
+          <strong>Event:</strong> {{type}} — {{message}}
+        </p>
+      {{/each}}
+    </div>
+
+    <!-- Telemetry History -->
+    <div class="box">
+      <h2 class="subtitle">Recent Telemetry (Last 20)</h2>
+
+      <table class="table is-striped is-fullwidth">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Temp (°C)</th>
+            <th>Humidity (%)</th>
+            <th>Pressure (hPa)</th>
+            <th>Wind (m/s)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each telemetryHistory}}
+            <tr>
+              <td>{{timestamp}}</td>
+              <td>{{temperature}}</td>
+              <td>{{humidity}}</td>
+              <td>{{pressure}}</td>
+              <td>{{windSpeed}}</td>
+            </tr>
+          {{else}}
+            <tr>
+              <td colspan="5">No telemetry history available.</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Event History -->
+    <div class="box">
+      <h2 class="subtitle">Recent Events</h2>
+
+      <table class="table is-striped is-fullwidth">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Type</th>
+            <th>Message</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each eventHistory}}
+            <tr class="has-background-warning-light">
+              <td>{{timestamp}}</td>
+              <td>{{type}}</td>
+              <td>{{message}}</td>
+              <td>{{value}}</td>
+            </tr>
+          {{else}}
+            <tr>
+              <td colspan="4">No events recorded.</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,55 @@
+# ======================
+# Node.js
+# ======================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ======================
+# Environment variables
+# ======================
+.env
+
+# ======================
+# OS / Editor files
+# ======================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ======================
+# Python (edge node)
+# ======================
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ======================
+# Logs
+# ======================
+logs/
+*.log
+
+# ======================
+# Temporary / Backup files
+# ======================
+*.tmp
+*.bak
+*.swp
+*~
+
+# ======================
+# Optional: CSV data
+# Uncomment these lines ONLY if your lecturer
+# does NOT require persistence evidence
+# ======================
+# data/*.csv
+
+# ======================
+# Optional: Packet Tracer autosaves
+# ======================
+*.pkt.bak
+

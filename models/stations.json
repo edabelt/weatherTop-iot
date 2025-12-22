@@ -1,0 +1,92 @@
+{
+  "file": "./models/stations.json",
+  "stations": [
+    {
+      "_id": "a0b83606-6e6e-41eb-8b32-e524ceea456b",
+      "name": "Ever David"
+    },
+    {
+      "_id": "9170344d-69e6-4eb1-904e-efeda5ee9bae",
+      "name": "everdavid"
+    },
+    {
+      "_id": "bf25bffe-eb68-4963-b2fe-a7c3fb2099b5",
+      "name": "Ever David"
+    },
+    {
+      "_id": "07b25a11-1df3-48e6-9ef1-c8e92352228d",
+      "name": "everdavid"
+    },
+    {
+      "name": "Globe",
+      "lat": 0.000007,
+      "lng": -0.000018,
+      "_id": "4059dadf-b8f8-4e70-9638-aca5b0f1f0e7"
+    },
+    {
+      "name": "La Merced",
+      "lat": 4.6534649,
+      "lng": -74.0836453,
+      "_id": "ccb8f3b5-71f9-4405-bd72-413bad54a060"
+    },
+    {
+      "name": "Mountjoy",
+      "lat": 53.3498006,
+      "lng": -6.2602964,
+      "_id": "0638f6ce-7059-4d74-b62d-3e4b189df804"
+    },
+    {
+      "name": "Waterford",
+      "lat": 52.2609997,
+      "lng": -7.1119081,
+      "_id": "ee0d5678-720e-4eb3-91cb-3ee5e3e9532b"
+    },
+    {
+      "name": "La Merced",
+      "lat": 4.6534649,
+      "lng": -74.0836453,
+      "_id": "58d6a417-27fa-4f3b-89bd-519e7835a561"
+    },
+    {
+      "name": "London, GB",
+      "lat": 51.5073219,
+      "lng": -0.1276474,
+      "_id": "a3ecc09b-1f58-41c3-84f1-9198b55000fe"
+    },
+    {
+      "_id": "4ef34935-8f3e-494c-83a7-8616ef51a425",
+      "name": "Amsterdam, NL",
+      "lat": 52.3727598,
+      "lng": 4.8936041,
+      "userId": "ea91b4d2-8fdc-40e0-8f85-83ba36be3d00"
+    },
+    {
+      "_id": "0c066b16-90e3-4560-a20e-99e226ad38c0",
+      "name": "Amsterdam, North Holland, NL",
+      "lat": 52.3727598,
+      "lng": 4.8936041,
+      "userId": "2b5e9442-4913-472d-94f4-6b46afe662a9"
+    },
+    {
+      "_id": "357a27fb-34ce-423c-a5e8-0fd22544fec3",
+      "name": "Dublin, IE",
+      "lat": 53.3498006,
+      "lng": -6.2602964,
+      "userId": "2b5e9442-4913-472d-94f4-6b46afe662a9"
+    },
+    {
+      "_id": "ca2fac26-a3ad-4a3c-a39c-f957172cca0d",
+      "name": "Salamanca, Castile and León, ES",
+      "lat": 40.9651572,
+      "lng": -5.6640182,
+      "userId": "2b5e9442-4913-472d-94f4-6b46afe662a9"
+    },
+    {
+      "_id": "70808a19-b3ac-4b43-a907-33c539287638",
+      "name": "Perímetro Urbano Barranquilla, Atlántico, CO",
+      "lat": 10.9810761,
+      "lng": -74.7988827,
+      "userId": "2b5e9442-4913-472d-94f4-6b46afe662a9"
+    }
+  ]
+}

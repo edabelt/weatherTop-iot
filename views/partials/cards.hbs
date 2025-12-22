@@ -1,0 +1,13 @@
+<div class="tile is-parent">
+  <article class="tile is-child notification is-dark p-3">
+    <div class="level mb-1">
+      <div class="level-left">
+        <p class="title is-6 has-text-white mb-1">{{title}}</p>
+      </div>
+      {{#if icon}}
+        <div class="level-right"><div class="is-size-5">{{{icon}}}</div></div>
+      {{/if}}
+    </div>
+    {{{@partial-block}}}
+  </article>
+</div>
