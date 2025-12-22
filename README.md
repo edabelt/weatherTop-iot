@@ -190,16 +190,22 @@ docs/network/networking-notes.md
 
 ---
 
-### Cloud Extension (Future Work)
+### Cloud Integration (ThingSpeak)
 
-In a future iteration, the WeatherTop-IoT system could forward
-telemetry data to a cloud IoT platform such as ThingSpeak.
-This would enable long-term storage, cloud-based analytics,
-and public dashboards.
+The WeatherTop-IoT system forwards live telemetry data to the **ThingSpeak** cloud platform using HTTP requests.
 
-This functionality was not implemented in the current prototype
-in order to focus on core networking concepts, MQTT messaging,
-and local processing.
+This integration enables:
+
+- Real-time cloud-based visualisation of IoT telemetry  
+- Public dashboards with live updating charts  
+- External verification of sensor data beyond the local application  
+- Demonstration of cloud–IoT interoperability  
+
+Telemetry published by the IoT edge node via MQTT is processed by the WeatherTop backend and then forwarded to ThingSpeak, complementing the local CSV persistence and web-based dashboard.
+
+This cloud integration demonstrates how an IoT system can combine **local processing**, **message-based communication**, and **cloud services** within a single architecture.
+
+---
 
 ## Live Deployment
 
