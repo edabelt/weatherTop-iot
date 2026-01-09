@@ -3,7 +3,9 @@
 **Student Name:** Ever David Beltran Pinto  
 **Student Id:20115056
 **Project Repo URL:** https://github.com/edabelt/weatherTop-iot
-**Video for Demo URL:**  
+**Video for Demo URL:** https://www.youtube.com/watch?v=H74sVRMD-9s
+**Deployment URL:**https://weathertop-iot.onrender.com/iot-view
+**Thingspeak URL Channer:**https://thingspeak.mathworks.com/channels/3210496 
 
 ---
 
